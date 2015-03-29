@@ -3,10 +3,151 @@
 <head>
 	<meta charset=utf-8>
 	<title>nikolasn's blog</title>
-	<link rel="stylesheet" type="text/css" href="style.css">
+	<link rel="stylesheet" type="text/css" href="style.css" />
+	
+	<style>
+		#myclock{
+			stroke:#AAAAAA;
+			stroke-linecap:round;
+			fill:#eef;
+		}
+		
+		#face{
+			stroke-width:3px;
+		}
+		#ticks{
+			stroke-width:2px;
+		}
+		#hourhand{
+		
+			stroke-width:5px;
+		}
+		#minutehand{
+			stroke-width:3px;	
+		}
+		#secondhand{
+			stroke-width:2px;	
+		}
+		#numbers{
+			font-family:sans-serif;
+			font-size:7pt;
+			font-weight:bold;
+			text-anchor:middle;
+			stroke:none;
+			fill:#AAAAAA;
+		}
+		
+	</style>
+
 </head>
-<body>
-	<p></p>
+<body onload="updateTime()">
+	<div id="header" class="clearfix">
+		<div id="aboutUsNav">
+			<ul class="ul_nav_l">
+				<li><a href="index.html">首页</a></li>
+				<li><a href="resume.html">简历</a></li>
+				<li><a href="introduction.html">博客简介</a></li>
+				<li><a href="help.html">帮助</a></li>
+			</ul>
+		</div>
+		<div class="clear"></div>
+		<div id="icon" >
+			<svg id="myclock" viewBox="0 0 100 100" width="400" height="100">
+				<defs>
+					<filter id="shodow" x="-100%" y="-100%" width="400%" height="400%">
+						<feGuassianBlur in="SourceAlpha" stdDeviation="1" result="blur" />
+						<feOffset in="blur" dx="1" dy="1" result="shadow" />
+						<feMerge>
+							<feMergeNode in="SourceGraphic" /><feMergeNode in="shadow" />
+						</feMerge>
+					</filter>
+				</defs>
+				<circle id="face" cx="50" cy="50" r="45" />
+				<g id="ticks">
+					<line x1='50.00' y1='5.000' x2='50.00' y2='10.00' />
+					<line x1='72.50' y1='11.03' x2='70.00' y2='15.36' />
+					<line x1='88.97' y1='27.50' x2='84.64' y2='30.00' />
+					<line x1='95.00' y1='50.00' x2='90.00' y2='50.00' />
+					<line x1='88.97' y1='72.50' x2='84.64' y2='70.00' />
+					<line x1='72.50' y1='88.97' x2='70.00' y2='84.64' />
+					<line x1='50.00' y1='95.00' x2='50.00' y2='90.00' />
+					<line x1='27.50' y1='88.97' x2='30.00' y2='84.64' />
+					<line x1='11.03' y1='72.50' x2='15.36' y2='70.00' />
+					<line x1='5.000' y1='50.00' x2='10.00' y2='50.00' />
+					<line x1='11.03' y1='27.50' x2='15.36' y2='30.00' />
+					<line x1='27.50' y1='11.03' x2='30.00' y2='15.36' />
+				</g>
+				<g id="numbers">
+					<text x="50" y="18">12</text><text x="85" y="53">3</text>
+					<text x="50" y="88">6</text><text x="15" y="53">9</text>
+				</g>
+				<g id="hands">
+					<line id="hourhand" x1="50" y1="50" x2="50" y2="24" />
+					<line id="minutehand" x1="50" y1="50" x2="50" y2="20" />
+					<line id="secondhand" x1="50" y1="50" x2="50" y2="16" />
+				
+				</g>
+			</svg>
+		</div>
+	
+		<div id="blogNav">
+			<ul class="ul_nav_l">
+                                        <li><a href="technology.html">技术</a></li>
+                                        <li><a href="life.html">生活</a></li>
+                                        <li><a href="share.html">分享</a></li>
+
+                                </ul>
+
+		</div>
+		<div class="clear"></div>
+	</div>
+	<div id="container">
+		<div id=recommend>
+			<div id="imageOfAtitle"></div>
+			<div id="recommendAtitle"></div>
+		</div>
+		<div id="detail">
+			<div id="detailAticle">
+				<div id="articleTitle"></div>
+				<div id="articleContent"></div>
+				<div id="pagesNav"></div>
+			</div>
+			<div id="detailSide">
+				<div id="searchKey">
+					<div id="search" class="searchCateg"></div>
+					<div id="searchDetail"></div>
+				</div>
+				<div id="category">
+					<div id="categ" class="searchCateg"></div>
+					<div id="categDetail"></div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="footer">
+	</div>
 </body>
+ <script>
+                function updateTime(){
+                        var now =new Date();
+                        var min=now.getMinutes();
+                        var hour=(now.getHours()%12)+min/60;
+			var second=now.getSeconds();
+                        var minangle=min*6;
+			//alert(hour+"=="+min+"=="+second);
+                        var hourangle=hour*30;
+			var secondangle=second*6;
+                        
+                        var minhand=document.getElementById("minutehand");
+                        var hourhand=document.getElementById("hourhand");
+                        
+                        minhand.setAttribute("transform","rotate("+minangle+",50,50)");
+                        hourhand.setAttribute("transform","rotate("+hourangle+",50,50)");
+			secondhand.setAttribute("transform","rotate("+secondangle+",50,50)");
+                        setTimeout(updateTime,1000);
+                }       
+        </script>
+
+
 </html>
 
